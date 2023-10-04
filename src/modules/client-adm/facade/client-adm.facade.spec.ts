@@ -38,17 +38,15 @@ describe("Client Adm Facade test", () => {
 
     const input = {
       id: "1",
-      name: "Lucian",
-      email: "lucian@xpto.com",
-      document: "1234-5678",
-      address: new Address(
-        "Rua 123",
-        "99",
-        "Casa Verde",
-        "Criciúma",
-        "SC",
-        "88888-888",
-      )
+      name: "Client 1",
+      email: "x@x.com",
+      document: "123",
+      street: "Street 1",
+      number: "1",
+      complement: "Complement 1",
+      city: "City 1",
+      state: "State 1",
+      zipCode: "123",
     }
 
     await facade.add(input)
@@ -58,36 +56,31 @@ describe("Client Adm Facade test", () => {
     expect(client).toBeDefined()
     expect(client.id).toBe(input.id)
     expect(client.name).toBe(input.name)
-    expect(client.email).toBe(input.email)
-    expect(client.document).toBe(input.document)
-    expect(client.street).toBe(input.address.street)
+    expect(client.email).toBe(input.email);
+    expect(client.document).toEqual(input.document);
+    expect(client.street).toEqual(input.street);
+    expect(client.number).toEqual(input.number);
+    expect(client.complement).toEqual(input.complement);
+    expect(client.city).toEqual(input.city);
+    expect(client.state).toEqual(input.state);
+    expect(client.zipCode).toEqual(input.zipCode);
   })
 
   it("should find a client", async () => {
-
-    // const repository = new ClientRepository()
-    // const addUsecase = new AddClientUseCase(repository)
-    // const findUseCase = new FindClientUseCase(repository)
-    // const facade = new ClientAdmFacade({
-    //   addUseCase: addUsecase,
-    //   findUseCase: findUseCase
-    // })
 
     const facade = ClientAdmFacadeFactory.create()
 
     const input = {
       id: "1",
-      name: "Lucian",
-      email: "lucian@xpto.com",
-      document: "1234-5678",
-      address: new Address(
-        "Rua 123",
-        "99",
-        "Casa Verde",
-        "Criciúma",
-        "SC",
-        "88888-888"
-      )
+      name: "Client 1",
+      email: "x@x.com",
+      document: "123",
+      street: "Street 1",
+      number: "1",
+      complement: "Complement 1",
+      city: "City 1",
+      state: "State 1",
+      zipCode: "123",
     }
 
     await facade.add(input)
@@ -95,15 +88,15 @@ describe("Client Adm Facade test", () => {
     const client = await facade.find({ id: "1" })
 
     expect(client).toBeDefined()
-    expect(client.id).toBe(input.id)
-    expect(client.name).toBe(input.name)
-    expect(client.email).toBe(input.email)
-    expect(client.document).toBe(input.document)
-    expect(client.address.street).toBe(input.address.street)
-    expect(client.address.number).toBe(input.address.number)
-    expect(client.address.complement).toBe(input.address.complement)
-    expect(client.address.city).toBe(input.address.city)
-    expect(client.address.state).toBe(input.address.state)
-    expect(client.address.zipCode).toBe(input.address.zipCode)
+    expect(client.id).toBe(input.id);
+    expect(client.name).toBe(input.name);
+    expect(client.email).toBe(input.email);
+    expect(client.document).toEqual(input.document);
+    expect(client.street).toEqual(input.street);
+    expect(client.number).toEqual(input.number);
+    expect(client.complement).toEqual(input.complement);
+    expect(client.city).toEqual(input.city);
+    expect(client.state).toEqual(input.state);
+    expect(client.zipCode).toEqual(input.zipCode);
   })
 })

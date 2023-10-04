@@ -32,15 +32,12 @@ describe("Client Repository test", () => {
       name: "Lucian",
       email: "lucian@teste.com",
       document: "1234-5678",
-      address: new Address(
-        "Rua 123",
-        "99",
-        "Casa Verde",
-        "Criciúma",
-        "SC",
-        "88888-888"
-      )
-      // address: "Rua 123",
+      street: "Street 1",
+      number: "1",
+      complement: "Complement 1",
+      city: "City 1",
+      state: "State 1",
+      zipCode: "123",
     })
 
     const repository = new ClientRepository()
@@ -53,14 +50,14 @@ describe("Client Repository test", () => {
     expect(clientDb.name).toEqual(client.name)
     expect(clientDb.email).toEqual(client.email)
     expect(clientDb.document).toEqual(client.document)
-    expect(clientDb.street).toEqual(client.address.street)
-    expect(clientDb.number).toEqual(client.address.number)
-    expect(clientDb.complement).toEqual(client.address.complement)
-    expect(clientDb.city).toEqual(client.address.city)
-    expect(clientDb.state).toEqual(client.address.state)
-    expect(clientDb.zipcode).toEqual(client.address.zipCode)
-    expect(clientDb.createdAt).toStrictEqual(client.createdAt)
-    expect(clientDb.updatedAt).toStrictEqual(client.updatedAt)
+    expect(clientDb.street).toEqual(client.street);
+    expect(clientDb.number).toEqual(client.number);
+    expect(clientDb.complement).toEqual(client.complement);
+    expect(clientDb.city).toEqual(client.city);
+    expect(clientDb.state).toEqual(client.state);
+    expect(clientDb.zipCode).toEqual(client.zipCode);
+    expect(clientDb.createdAt).toStrictEqual(client.createdAt);
+    expect(clientDb.updatedAt).toStrictEqual(client.updatedAt);
   })
 
   it("should find a client", async () => {
@@ -86,12 +83,12 @@ describe("Client Repository test", () => {
     expect(result.id.id).toEqual(client.id)
     expect(result.name).toEqual(client.name)
     expect(result.email).toEqual(client.email)
-    expect(result.address.street).toEqual(client.street)
-    expect(result.address.number).toEqual(client.number)
-    expect(result.address.complement).toEqual(client.complement)
-    expect(result.address.city).toEqual(client.city)
-    expect(result.address.state).toEqual(client.state)
-    expect(result.address.zipCode).toEqual(client.zipcode)
+    expect(result.street).toEqual(client.street)
+    expect(result.number).toEqual(client.number)
+    expect(result.complement).toEqual(client.complement)
+    expect(result.city).toEqual(client.city)
+    expect(result.state).toEqual(client.state)
+    expect(result.zipCode).toEqual(client.zipCode)
     expect(result.createdAt).toStrictEqual(client.createdAt)
     expect(result.updatedAt).toStrictEqual(client.updatedAt)
   })

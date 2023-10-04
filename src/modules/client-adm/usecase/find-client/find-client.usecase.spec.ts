@@ -8,14 +8,12 @@ const client = new Client({
   name: "Lucian",
   email: "lucian@123.com",
   document: "1234-5678",
-  address: new Address(
-    "Rua 123",
-    "99",
-    "Casa Verde",
-    "Criciúma",
-    "SC",
-    "88888-888",
-  )
+  street: "Street 1",
+  number: "1",
+  complement: "Complement 1",
+  city: "City 1",
+  state: "State 1",
+  zipCode: "123",
 })
 
 const MockRepository = () => {
@@ -43,8 +41,13 @@ describe("Find Client use case unit test", () => {
     expect(result.id).toEqual(input.id)
     expect(result.name).toEqual(client.name)
     expect(result.email).toEqual(client.email)
-    expect(result.address).toEqual(client.address)
-    expect(result.createdAt).toEqual(client.createdAt)
-    expect(result.updatedAt).toEqual(client.updatedAt)
+    expect(result.street).toEqual(client.street);
+    expect(result.number).toEqual(client.number);
+    expect(result.complement).toEqual(client.complement);
+    expect(result.city).toEqual(client.city);
+    expect(result.state).toEqual(client.state);
+    expect(result.zipCode).toEqual(client.zipCode);
+    expect(result.createdAt).toEqual(client.createdAt);
+    expect(result.updatedAt).toEqual(client.updatedAt);
   })
 })
