@@ -1,10 +1,11 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { OrderModel } from "../../checkout/repository/order.model";
 
 @Table({
   tableName: "products",
   timestamps: false,
 })
-export default class ProductModel extends Model {
+export default class CatalogProductModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
   id: string;
@@ -17,4 +18,11 @@ export default class ProductModel extends Model {
 
   @Column({ allowNull: false })
   salesPrice: number;
+
+  @ForeignKey(() => OrderModel)
+  @Column({ allowNull: true })
+  order_id: string;
+
+  @BelongsTo(() => OrderModel)
+  order: OrderModel;
 }

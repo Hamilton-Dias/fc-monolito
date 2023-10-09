@@ -1,9 +1,10 @@
 import { Sequelize } from "sequelize-typescript"
 import { ClientModel } from "./client.model"
+import { OrderModel } from "../../checkout/repository/order.model";
+import CatalogProductModel from "../../store-catalog/repository/product.model";
 import ClientRepository from "./client.repository"
 import Client from "../domain/client.entity"
 import Id from "../../@shared/domain/value-object/id.value-object"
-import Address from "../../@shared/domain/value-object/address"
 
 describe("Client Repository test", () => {
 
@@ -17,7 +18,7 @@ describe("Client Repository test", () => {
       sync: { force: true }
     })
 
-    sequelize.addModels([ClientModel])
+    await sequelize.addModels([ClientModel, OrderModel, CatalogProductModel])
     await sequelize.sync()
   })
 
@@ -72,7 +73,7 @@ describe("Client Repository test", () => {
       complement: "Casa Verde",
       city: "Criciúma",
       state: "SC",
-      zipcode: "88888-888",      
+      zipCode: "88888-888", 
       createdAt: new Date(),
       updatedAt: new Date()
     })

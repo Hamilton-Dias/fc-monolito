@@ -14,10 +14,10 @@
   },
   "scripts": {
     "test": "npm run tsc -- --noEmit && jest",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "migrate": "node -r ts-node/register/transpile-only ./src/infrastructure/api/__test__/config-migrations/migrator-cli.ts"
   },
   "dependencies": {
-    "@sequelize/core": "^7.0.0-alpha.29",
     "@types/express": "^4.17.13",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
@@ -27,6 +27,7 @@
     "sequelize": "^6.17.0",
     "sequelize-typescript": "^2.1.3",
     "sqlite3": "^5.0.2",
+    "umzug": "^3.2.1",
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
   }

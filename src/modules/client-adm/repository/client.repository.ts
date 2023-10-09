@@ -1,4 +1,3 @@
-import Address from "../../@shared/domain/value-object/address";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import Client from "../domain/client.entity";
 import ClientGateway from "../gateway/client.gateway";
@@ -18,7 +17,7 @@ export default class ClientRepository implements ClientGateway {
       complement: entity.complement,
       city: entity.city,
       state: entity.state,
-      zipcode: entity.zipCode,
+      zipCode: entity.zipCode,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt
     })

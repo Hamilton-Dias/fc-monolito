@@ -17,7 +17,7 @@ describe("Invoice Facade test", () => {
       sync: { force: true }
     })
 
-    sequelize.addModels([InvoiceModel, InvoiceItemModel])
+    await sequelize.addModels([InvoiceModel, InvoiceItemModel])
     await sequelize.sync()
   })
 
