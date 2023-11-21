@@ -37,7 +37,7 @@ export default class OrderRepository implements CheckoutGateway {
           updatedAt: order.updatedAt,
         },
         {include: [ClientModel, CatalogProductModel]});
-      }
+    }
     findOrder(id: string): Promise<Order> {
         throw new Error("Method not implemented.");
     }

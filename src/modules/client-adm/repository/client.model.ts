@@ -2,40 +2,40 @@ import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequeli
 import { OrderModel } from "../../checkout/repository/order.model";
 
 @Table({
-  tableName: 'client',
-  timestamps: false
+  tableName: "clients",
+  timestamps: false,
 })
 export class ClientModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
-  id: string
+  id: string;
 
   @Column({ allowNull: false })
-  name: string
+  name: string;
+  
+  @Column({ allowNull: false })
+  email: string;
+  
+  @Column({ allowNull: false })
+  document: string;
 
   @Column({ allowNull: false })
-  email: string
-
+  street: string;
+  
   @Column({ allowNull: false })
-  document: string
-
+  number: string;
+  
   @Column({ allowNull: false })
-  street: string
-
+  complement: string;
+  
   @Column({ allowNull: false })
-  number: string
-
-  @Column({ allowNull: true })
-  complement: string
-
+  city: string;
+  
   @Column({ allowNull: false })
-  city: string
-
+  state: string;
+  
   @Column({ allowNull: false })
-  state: string
-
-  @Column({ allowNull: false })
-  zipCode: string
+  zipCode: string;
 
   @ForeignKey(() => OrderModel)
   @Column({ allowNull: true })
@@ -45,8 +45,8 @@ export class ClientModel extends Model {
   order: OrderModel;
 
   @Column({ allowNull: false })
-  createdAt: Date
+  createdAt: Date;
 
   @Column({ allowNull: false })
-  updatedAt: Date
+  updatedAt: Date;
 }

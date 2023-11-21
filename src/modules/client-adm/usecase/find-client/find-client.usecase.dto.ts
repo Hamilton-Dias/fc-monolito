@@ -1,10 +1,8 @@
-import Address from "../../../@shared/domain/value-object/address"
-
-export interface FindClientUseCaseInputDto {
-  id: string
+export interface FindClientInputDto {
+  id: string;
 }
 
-export interface FindClientUseCaseOutputDto {
+export interface FindClientOutputDto {
   id: string;
   name: string;
   email: string;

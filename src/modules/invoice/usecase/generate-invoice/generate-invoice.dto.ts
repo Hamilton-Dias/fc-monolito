@@ -1,7 +1,6 @@
-export interface AddClientInputDto {
+export interface GenerateInvoiceUseCaseInputDto {
   id?: string;
   name: string;
-  email: string;
   document: string;
   street: string;
   number: string;
@@ -9,12 +8,16 @@ export interface AddClientInputDto {
   city: string;
   state: string;
   zipCode: string;
+  items: {
+    id: string;
+    name: string;
+    price: number;
+  }[];
 }
 
-export interface AddClientOutputDto {
+export interface GenerateInvoiceUseCaseOutputDto {
   id: string;
   name: string;
-  email: string;
   document: string;
   street: string;
   number: string;
@@ -22,6 +25,10 @@ export interface AddClientOutputDto {
   city: string;
   state: string;
   zipCode: string;
-  createdAt: Date;
-  updatedAt: Date;
+  items: {
+    id: string;
+    name: string;
+    price: number;
+  }[];
+  total: number;
 }
