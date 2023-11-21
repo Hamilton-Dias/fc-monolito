@@ -43,14 +43,14 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
     },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: false,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: false,
     },
   })
-  await sequelize.getQueryInterface().createTable('client', {
+  await sequelize.getQueryInterface().createTable('clients', {
     id: {
       type: DataTypes.STRING(255),
       primaryKey: true,
@@ -132,7 +132,7 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
       allowNull: false,
     },
   })
-  await sequelize.getQueryInterface().createTable('invoice', {
+  await sequelize.getQueryInterface().createTable('invoices', {
     id: {
       type: DataTypes.STRING(255),
       primaryKey: true,
@@ -166,7 +166,7 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    zipcode: {
+    zip_code: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
@@ -183,51 +183,11 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
       allowNull: false,
     },
   })
-  await sequelize.getQueryInterface().createTable('invoice_itens', {
-    id: {
-      type: DataTypes.STRING(255),
-      primaryKey: true,
-      allowNull: false
-    },
-    name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    price: {
-      type: DataTypes.NUMBER(),
-      allowNull: false
-    },
-    invoice_id: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    }
-  })
-  await sequelize.getQueryInterface().createTable('orders', {
-    id: {
-      type: DataTypes.STRING(255),
-      primaryKey: true,
-      allowNull: false
-    },
-    status: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-  })
 };
 
 export const down: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
   await sequelize.getQueryInterface().dropTable('products')
-  await sequelize.getQueryInterface().dropTable('client')
+  await sequelize.getQueryInterface().dropTable('clients')
   await sequelize.getQueryInterface().dropTable('transactions')
-  await sequelize.getQueryInterface().dropTable('invoice')
-  await sequelize.getQueryInterface().dropTable('invoice_itens')
-  await sequelize.getQueryInterface().dropTable('orders')
+  await sequelize.getQueryInterface().dropTable('invoices')
 } 
