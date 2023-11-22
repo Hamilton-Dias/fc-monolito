@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { FindInvoiceFacadeInputDTO } from '../../../modules/invoice/facade/invoice.facade.interface';
+import { FindInvoiceFacadeInputDto } from '../../../modules/invoice/facade/invoice.facade.interface';
 import InvoiceFacadeFactory from '../../../modules/invoice/factory/invoice.facade.factory';
 
 export const invoiceRoute = express.Router();
@@ -7,12 +7,13 @@ export const invoiceRoute = express.Router();
 invoiceRoute.get('/:id', async (req: Request, res: Response) => {
   const invoiceFacade = InvoiceFacadeFactory.create()
   try {
-    const invoiceDto: FindInvoiceFacadeInputDTO = {
+    const invoiceDto: FindInvoiceFacadeInputDto = {
       id: req.params.id
     };
-    const output = await invoiceFacade.find(invoiceDto);
+    const output = await invoiceFacade.findInvoice(invoiceDto);
     res.send(output);
   } catch (err) {
+    console.log('aqui')
     console.log({ err })
     res.status(500).send(err);
   }

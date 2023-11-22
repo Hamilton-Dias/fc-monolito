@@ -1,6 +1,6 @@
 import { Column, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
-import { ClientModel } from "../../client-adm/repository/client.model";
-import CatalogProductModel from "../../store-catalog/repository/product.model";
+import ClientModel from "./client.model";
+import ProductModel from "./product.model";
 
 @Table({
   tableName: "orders",
@@ -9,20 +9,20 @@ import CatalogProductModel from "../../store-catalog/repository/product.model";
 export class OrderModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
-  id: string;
+  declare id: string;
 
   @HasOne(() => ClientModel)
-  client: ClientModel;
+  declare client: ClientModel;
   
-  @HasMany(() => CatalogProductModel)
-  products: CatalogProductModel[];
-  
-  @Column({ allowNull: false })
-  status: string;
+  @HasMany(() => ProductModel)
+  declare products: ProductModel[];
   
   @Column({ allowNull: false })
-  createdAt: Date;
+  declare status: string;
+  
+  @Column({ allowNull: false })
+  declare createdAt: Date;
 
   @Column({ allowNull: false })
-  updatedAt: Date;
+  declare updatedAt: Date;
 }

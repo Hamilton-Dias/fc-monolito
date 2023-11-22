@@ -3,14 +3,15 @@ import { Sequelize } from 'sequelize-typescript';
 import { OrderModel } from '../../modules/checkout/repository/order.model';
 import { ClientModel } from '../../modules/client-adm/repository/client.model';
 import { InvoiceModel } from '../../modules/invoice/repository/invoice.model';
-import { InvoiceItemModel } from "../../modules/invoice/repository/invoice-item.model";
+import { InvoiceProductModel } from '../../modules/invoice/repository/product.model';
 import TransactionModel from '../../modules/payment/repository/transaction.model';
-import { ProductModel } from '../../modules/product-adm/repository/product.model';
+import ProductModel from '../../modules/product-adm/repository/product.model';
 import CatalogProductModel from '../../modules/store-catalog/repository/product.model';
 import { checkoutRoute } from './routes/checkout.route';
 import { clientRoute } from './routes/clients.route';
 import { invoiceRoute } from './routes/invoice.route';
 import { productRoute } from './routes/product.route';
+import InvoiceItemModel from '../../modules/invoice/repository/invoice-item.model';
 
 export const app: Express = express();
 app.use(express.json());
@@ -27,7 +28,15 @@ async function setupDb() {
     storage: ':memory:',
     logging: false,
   });
-  await sequelize.addModels([ProductModel, InvoiceModel, InvoiceItemModel, ClientModel, OrderModel, CatalogProductModel, TransactionModel]);
+  await sequelize.addModels([
+    ProductModel, 
+    InvoiceModel, 
+    InvoiceProductModel, 
+    ClientModel, 
+    OrderModel, 
+    CatalogProductModel, 
+    TransactionModel,
+    InvoiceItemModel]);
   await sequelize.sync();
 }
 setupDb();

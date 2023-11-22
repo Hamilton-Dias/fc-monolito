@@ -1,12 +1,12 @@
 import { Sequelize } from "sequelize-typescript";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import { OrderModel } from "./order.model";
-import { ClientModel } from "../../client-adm/repository/client.model";
+import ClientModel from "./client.model";
 import OrderRepository from "./order.repository";
 import Order from "../domain/order.entity";
 import Product from "../domain/product.entity";
 import Client from "../../client-adm/domain/client.entity";
-import CatalogProductModel from "../../store-catalog/repository/product.model";
+import ProductModel from "./product.model";
 
 describe("OrderRepository test", () => {
   let sequelize: Sequelize;
@@ -19,7 +19,7 @@ describe("OrderRepository test", () => {
       sync: { force: true },
     });
 
-    await sequelize.addModels([OrderModel, CatalogProductModel, ClientModel]);
+    await sequelize.addModels([OrderModel, ClientModel, ProductModel]);
     await sequelize.sync();
   });
 
@@ -62,7 +62,7 @@ describe("OrderRepository test", () => {
         where: { id: "Order id 1" },
         include: [
             { model: ClientModel },
-            { model: CatalogProductModel }
+            { model: ProductModel }
         ]
     });
 

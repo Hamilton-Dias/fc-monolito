@@ -1,8 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import CatalogProductModel from "./product.model";
 import ProductRepository from "./product.repository";
-import { OrderModel } from "../../checkout/repository/order.model";
-import { ClientModel } from "../../client-adm/repository/client.model";
 
 describe("ProductRepository test", () => {
   let sequelize: Sequelize;
@@ -15,7 +13,7 @@ describe("ProductRepository test", () => {
       sync: { force: true },
     });
 
-    await sequelize.addModels([CatalogProductModel, OrderModel, ClientModel]);
+    await sequelize.addModels([CatalogProductModel]);
     await sequelize.sync();
   });
 

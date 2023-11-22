@@ -1,5 +1,5 @@
-import { ClientModel } from "../../client-adm/repository/client.model";
-import CatalogProductModel from "../../store-catalog/repository/product.model";
+import ClientModel from "./client.model";
+import ProductModel from "./product.model";
 import Order from "../domain/order.entity";
 import CheckoutGateway from "../gateway/checkout.gateway";
 import { OrderModel } from "./order.model";
@@ -24,7 +24,7 @@ export default class OrderRepository implements CheckoutGateway {
             orderId: order.id.id,
           }),
           products: order.products.map((item) => {
-            return new CatalogProductModel({
+            return new ProductModel({
               id: item.id.id,
               name: item.name,
               description: item.description,
@@ -36,8 +36,8 @@ export default class OrderRepository implements CheckoutGateway {
           createdAt: order.createdAt,
           updatedAt: order.updatedAt,
         },
-        {include: [ClientModel, CatalogProductModel]});
-      }
+        {include: [ClientModel, ProductModel]});
+    }
     findOrder(id: string): Promise<Order> {
         throw new Error("Method not implemented.");
     }

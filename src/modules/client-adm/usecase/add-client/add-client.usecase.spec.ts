@@ -1,18 +1,14 @@
-import Address from "../../../@shared/domain/value-object/address"
-import AddClientUseCase from "./add-client.usecase"
+import AddClientUseCase from "./add-client.usecase";
 
 const MockRepository = () => {
   return {
-
     add: jest.fn(),
-    find: jest.fn()
-  }
-}
+    find: jest.fn(),
+  };
+};
 
-describe("Add Client use case unit test", () => {
-
+describe("Add Client Usecase unit test", () => {
   it("should add a client", async () => {
-
     const repository = MockRepository();
     const usecase = new AddClientUseCase(repository);
 
@@ -41,6 +37,5 @@ describe("Add Client use case unit test", () => {
     expect(result.city).toEqual(input.city);
     expect(result.state).toEqual(input.state);
     expect(result.zipCode).toEqual(input.zipCode);
-
-  })
-})
+  });
+});

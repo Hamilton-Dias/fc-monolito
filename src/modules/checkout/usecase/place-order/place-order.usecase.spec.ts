@@ -70,7 +70,7 @@ describe("PlaceOrderUseCase unit test", () => {
 
     describe("getProduct method", () => {
         beforeAll(() => {
-            jest.useFakeTimers();
+            jest.useFakeTimers("modern");
             jest.setSystemTime(mockDate);
         });
 
@@ -119,7 +119,7 @@ describe("PlaceOrderUseCase unit test", () => {
     });
     describe("execute method", () => {
         beforeAll(() => {
-            jest.useFakeTimers();
+            jest.useFakeTimers("modern");
             jest.setSystemTime(mockDate);
         });
 
@@ -196,7 +196,7 @@ describe("PlaceOrderUseCase unit test", () => {
             }
 
             const mockInvoiceFacade = {
-                generate: jest.fn().mockResolvedValue({ id: "1i" })
+                generateInvoice: jest.fn().mockResolvedValue({ id: "1i" })
             }
 
             const placeOrderUseCase = new PlaceOrderUseCase(
@@ -271,7 +271,7 @@ describe("PlaceOrderUseCase unit test", () => {
                     orderId: output.id,
                     amount: output.total,
                 });
-                expect(mockInvoiceFacade.generate).toHaveBeenCalledTimes(0);
+                expect(mockInvoiceFacade.generateInvoice).toHaveBeenCalledTimes(0);
             });
 
             it("should be approved", async () => {
@@ -308,8 +308,8 @@ describe("PlaceOrderUseCase unit test", () => {
                     orderId: output.id,
                     amount: output.total,
                 });
-                expect(mockInvoiceFacade.generate).toHaveBeenCalledTimes(1);
-                expect(mockInvoiceFacade.generate).toHaveBeenCalledWith({
+                expect(mockInvoiceFacade.generateInvoice).toHaveBeenCalledTimes(1);
+                expect(mockInvoiceFacade.generateInvoice).toHaveBeenCalledWith({
                     name: clientProps.name,
                     document: clientProps.document,
                     street: clientProps.street,

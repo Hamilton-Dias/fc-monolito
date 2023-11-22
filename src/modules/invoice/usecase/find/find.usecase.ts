@@ -1,41 +1,38 @@
 import InvoiceGateway from "../../gateway/invoice.gateway";
-import { FindInvoiceUseCaseInputDTO, FindInvoiceUseCaseOutputDTO } from "./find.dto";
+import {
+  FindInvoiceUseCaseInputDTO,
+  FindInvoiceUseCaseOutputDTO,
+} from "./find.dto";
 
 export default class FindInvoiceUseCase {
+  private _invoiceRepository: InvoiceGateway;
 
-  private _invoiceRepository: InvoiceGateway
-
-  constructor(clientRepository: InvoiceGateway) {
-    this._invoiceRepository = clientRepository
+  constructor(invoiceRepository: InvoiceGateway) {
+    this._invoiceRepository = invoiceRepository;
   }
 
   async execute(input: FindInvoiceUseCaseInputDTO): Promise<FindInvoiceUseCaseOutputDTO> {
-
-    const result = await this._invoiceRepository.find(input.id)
-
-    const items = result.items.map(item => {
-        return {
-            id: item.id.id,
-            name: item.name,
-            price: item.price
-        }
-    })
+    const invoice = await this._invoiceRepository.find(input.id);
 
     return {
-      id: result.id.id,
-      name: result.name,
-      document: result.document,
+      id: invoice.id.id,
+      name: invoice.name,
+      document: invoice.document,
       address: {
-        street: result.address.street,
-        number: result.address.number,
-        complement: result.address.complement,
-        city: result.address.city,
-        state: result.address.state,
-        zipCode: result.address.zipCode,
+        street: invoice.address.street,
+        number: invoice.address.number,
+        complement: invoice.address.complement,
+        city: invoice.address.city,
+        state: invoice.address.state,
+        zipCode: invoice.address.zipCode,
       },
-      items: items,
-      total: result.total,
-      createdAt: result.createdAt
-    }
+      items: invoice.items.map(item => ({
+        id: item.id.id,
+        name: item.name,
+        price: item.price
+      })),
+      total: invoice.items.reduce((prev, current) => current.price + prev, 0),
+      createdAt: invoice.createdAt
+    };
   }
 }

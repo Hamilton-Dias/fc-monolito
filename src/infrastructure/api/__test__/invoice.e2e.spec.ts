@@ -1,10 +1,26 @@
 import request from 'supertest';
 import { GenerateInvoiceFacadeInputDto } from '../../../modules/invoice/facade/invoice.facade.interface';
 import InvoiceFacadeFactory from '../../../modules/invoice/factory/invoice.facade.factory';
-import { app, sequelize } from '../express';
+import { app } from '../express';
+import { Sequelize } from 'sequelize-typescript';
+import ProductModel from "../../../modules/product-adm/repository/product.model";
+import { InvoiceModel } from "../../../modules/invoice/repository/invoice.model";
+import { InvoiceProductModel } from "../../../modules/invoice/repository/product.model";
+import InvoiceItemModel from '../../../modules/invoice/repository/invoice-item.model';
 
 describe('E2E test for invoice', () => {
+	let sequelize: Sequelize;
+
 	beforeEach(async () => {
+		sequelize = new Sequelize({
+			dialect: "sqlite",
+			storage: ":memory:",
+			logging: false,
+			sync: { force: true },
+		});
+
+		sequelize.addModels([InvoiceModel, ProductModel, InvoiceProductModel, InvoiceItemModel]);
+
 		await sequelize.sync({ force: true });
 	});
 
@@ -30,7 +46,7 @@ describe('E2E test for invoice', () => {
                 price: 10,
             }]
         }
-        const generatedInvoice = await invoiceFacade.generate(invoiceInput)
+        const generatedInvoice = await invoiceFacade.generateInvoice(invoiceInput)
 
 		const response = await request(app)
 			.get(`/invoice/${generatedInvoice.id}`)

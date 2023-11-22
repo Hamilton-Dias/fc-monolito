@@ -1,48 +1,37 @@
 import Id from "../../../@shared/domain/value-object/id.value-object";
+import Address from "../../domain/address.value-object";
 import Invoice from "../../domain/invoice.entity";
-import InvoiceItem from "../../domain/invoice-item.entity";
-import Address from "../../../@shared/domain/value-object/address";
+import Product from "../../domain/product.entity";
 import InvoiceGateway from "../../gateway/invoice.gateway";
 import { GenerateInvoiceUseCaseInputDto, GenerateInvoiceUseCaseOutputDto } from "./generate.dto";
 
 export default class GenerateInvoiceUseCase {
-  private _invoiceRepository: InvoiceGateway;
 
-  constructor(_invoiceRepository: InvoiceGateway) {
-    this._invoiceRepository = _invoiceRepository;
-  }
+  constructor(private readonly _invoiceRepository: InvoiceGateway) {}
+
 
   async execute(input: GenerateInvoiceUseCaseInputDto): Promise<GenerateInvoiceUseCaseOutputDto> {
-    const items = input.items.map(item => new InvoiceItem({
+    const props = {
+      id: new Id(input.id) || new Id(),
+      name: input.name,
+      document: input.document,
+      address: new Address({
+        street: input.street,
+        number: input.number,
+        complement: input.complement,
+        city: input.city,
+        state: input.state,
+        zipCode: input.zipCode
+      }),
+      items: input.items.map(item => new Product({
         id: new Id(item.id),
         name: item.name,
         price: item.price
-    }))
+      }))
+    }
 
-    const props = {
-      name: input.name,
-      document: input.document,
-      address: new Address(
-        input.street,
-        input.number,
-        input.complement,
-        input.city,
-        input.state,
-        input.zipCode,
-      ),
-      items: items
-    };
-
-    const invoice = new Invoice(props);
-    await this._invoiceRepository.generate(invoice);
-
-    const returnItens = invoice.items.map(item => {
-        return {
-            id: item.id.id,
-            name: item.name,
-            price: item.price
-        }
-    })
+    const invoice = new Invoice(props)
+    await this._invoiceRepository.save(invoice)
 
     return {
       id: invoice.id.id,
@@ -54,8 +43,14 @@ export default class GenerateInvoiceUseCase {
       city: invoice.address.city,
       state: invoice.address.state,
       zipCode: invoice.address.zipCode,
-      items: returnItens,
-      total: invoice.total
-    };
+      items: invoice.items.map(item => ({
+        id: item.id.id,
+        name: item.name,
+        price: item.price
+      })),
+      total: invoice.items.reduce((prev, curr) => curr.price + prev, 0)
+    }
+
   }
+
 }

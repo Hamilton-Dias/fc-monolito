@@ -1,46 +1,51 @@
-import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
-import { InvoiceItemModel } from "./invoice-item.model";
-import { NonAttribute } from "sequelize";
+import { BelongsToMany, Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import InvoiceItemModel from "./invoice-item.model";
+import { InvoiceProductModel } from "./product.model";
 
 @Table({
-  tableName: 'invoice',
-  timestamps: false
+  tableName: "invoices",
+  timestamps: false,
 })
 export class InvoiceModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
-  id: string
+  declare id: string;
 
   @Column({ allowNull: false })
-  name: string
+  declare name: string;
 
   @Column({ allowNull: false })
-  document: string
+  declare document: string;
 
   @Column({ allowNull: false })
-  street: string
+  declare street: string;
 
   @Column({ allowNull: false })
-  number: string
-
-  @Column({ allowNull: true })
-  complement: string
+  declare number: string;
 
   @Column({ allowNull: false })
-  city: string
+  declare complement: string;
 
   @Column({ allowNull: false })
-  state: string
+  declare city: string;
 
   @Column({ allowNull: false })
-  zipcode: string
+  declare state: string;
+
+  @Column({ allowNull: false, field: "zip_code" })
+  declare zipCode: string;
+
+  @BelongsToMany(() => InvoiceProductModel, {
+    through: { model: () => InvoiceItemModel },
+  })
+  declare items: InvoiceProductModel[];
+
+  @HasMany(() => InvoiceItemModel)
+  declare invoiceProducts: InvoiceItemModel[];
 
   @Column({ allowNull: false })
-  createdAt: Date
+  declare createdAt: Date;
 
   @Column({ allowNull: false })
-  updatedAt: Date
-
-  @HasMany(() => InvoiceItemModel, 'invoice_id')
-  declare invoiceItems?: NonAttribute<InvoiceItemModel>
+  declare updatedAt: Date;
 }
